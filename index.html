@@ -18,6 +18,7 @@
 @media(max-width:1050px){.reader{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:750px){.app{display:block}.side{display:none}.main{padding:20px 16px 110px}.topline{margin-bottom:18px}.hero{padding:23px;border-radius:16px}.hero h1{font-size:25px}.grid{grid-template-columns:1fr}.stats{gap:9px;margin:14px 0 22px}.stat{padding:13px}.stat strong{font-size:23px}.card{padding:17px}.lawrow{padding:14px}.readertext{font-size:18px}.mnav{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid #dde7e5;padding:8px 3px max(8px,env(safe-area-inset-bottom))}.mnav button{border:0;background:none;color:#607b7d;font-size:10px;font-weight:750;display:grid;justify-items:center;gap:1px;padding:3px 0}.mnav button span{font-size:21px}.mnav button.on{color:#117b6e}.pill{font-size:10px}h2{font-size:19px}}
  .wordmasked{background:#273f47;color:#273f47!important;border-radius:4px;user-select:none;cursor:pointer;padding:0 2px}.testselected{background:#d5eee3!important;color:#104d46!important}.paper{background:#fff;border:1px solid #dae7e2;padding:17px;border-radius:13px;margin:10px 0}.flashanswer{padding:16px;margin-top:12px;border-radius:12px;background:#e9f7f1}.importtextarea{width:100%;min-height:110px;resize:vertical;padding:12px;border:1px solid #cad9d6;border-radius:11px;font:inherit}.resultpill{display:inline-block;padding:5px 9px;border-radius:30px;background:#e3f5ec;color:#155f50;margin:3px;font-size:12px}.resultpill.missing{background:#fff3e7;color:#955300}.scoreline{display:flex;align-items:center;gap:11px;margin:10px 0}.scoreline span{min-width:135px;font-size:13px}.scoreline .progressbar{flex:1;height:9px;margin:0}.subnav{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0 20px}.qcard{scroll-margin-top:10px}@media(max-width:650px){.scoreline span{min-width:95px}.hero .btn{margin:6px 3px 0 0!important}}
+.version-refresh{border:0;background:transparent;font:inherit;color:var(--teal);text-decoration:underline;cursor:pointer;padding:3px 6px}.update-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#e2f5ed;color:#184b43;border:1px solid #b8dccf;border-radius:14px;padding:12px 14px;margin:0 0 20px;font-size:13px}.update-banner[hidden]{display:none!important}@media(max-width:600px){.update-banner{flex-direction:column;align-items:flex-start}.version-refresh{font-size:12px}}
 </style>
 </head>
 <body>
@@ -27,13 +28,46 @@
 <nav class="menu" id="desktopnav"></nav>
 <div class="sidefoot">Uma experiência de estudo criada do zero.<br>Dados armazenados neste dispositivo.<br><strong>Sem vínculo com o ELS.</strong></div>
 </aside>
-<main class="main"><div class="topline"><div><div class="eyebrow">Seu espaço de estudo</div><div class="small muted">LeiLab · Versão demonstrativa 0.4</div></div><span class="pill">● Dados locais</span></div><div id="view"></div><footer class="footer">LeiLab é um nome provisório. Conteúdo demonstrativo. Antes de estudar, confira a redação vigente na fonte oficial. Não é aconselhamento jurídico.</footer></main>
+<main class="main"><div class="topline"><div><div class="eyebrow">Seu espaço de estudo</div><div class="small muted">LeiLab · Versão demonstrativa 0.4.1 <button class="version-refresh" onclick="checkForUpdates(true)" title="Verificar se há atualização">↻ Atualização</button></div></div><span class="pill">● Dados locais</span></div><div id="updateBanner" class="update-banner" hidden role="status" aria-live="polite"><span id="updateBannerText">Nova versão disponível.</span><button class="btn sm" onclick="applyUpdate()">Atualizar sem perder meus dados</button></div><div id="view"></div><footer class="footer">LeiLab é um nome provisório. Conteúdo demonstrativo. Antes de estudar, confira a redação vigente na fonte oficial. Não é aconselhamento jurídico.</footer></main>
 </div>
 <nav class="mnav" id="mobilenav"></nav>
 <script src="./laws-extra.js"></script>
 <script src="./replica-core.js"></script>
 <script>
 "use strict";
+const APP_VERSION='0.4.1';
+let latestAvailableVersion=null;
+function compareVersions(a,b){
+ const left=String(a).split('.').map(Number),right=String(b).split('.').map(Number);
+ for(let i=0;i<3;i++){if((left[i]||0)!==(right[i]||0))return (left[i]||0)>(right[i]||0)?1:-1}
+ return 0;
+}
+async function checkForUpdates(showFeedback=false){
+ if(typeof fetch!=='function')return;
+ try{
+  const response=await fetch('./version.json?check='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw Error('Resposta indisponível');
+  const data=await response.json();
+  if(!data||typeof data.version!=='string'||!/^\d+\.\d+\.\d+$/.test(data.version))throw Error('Versão inválida');
+  const banner=document.getElementById('updateBanner');
+  if(compareVersions(data.version,APP_VERSION)>0){
+   latestAvailableVersion=data.version;
+   if(banner)banner.hidden=false;
+   const message=document.getElementById('updateBannerText');
+   if(message)message.textContent='LeiLab '+data.version+' disponível. Suas respostas e anotações serão preservadas.';
+  }else{
+   latestAvailableVersion=null;
+   if(banner)banner.hidden=true;
+   if(showFeedback)showToast('Você já está usando a versão mais recente do LeiLab.');
+  }
+ }catch(error){if(showFeedback)showToast('Sem conexão para verificar atualizações. Continue estudando normalmente.')}
+}
+function applyUpdate(){
+ if(!latestAvailableVersion)return;
+ const url=new URL('./',window.location.href);
+ url.searchParams.set('v',latestAvailableVersion);
+ window.location.assign(url.href);
+}
 const LAW_SOURCE='https://www4.planalto.gov.br/legislacao/legis-federal/constituicao';
 const ARTICLES=[
 {id:'cf1',law:'Constituição Federal',subject:'Direito Constitucional',label:'Art. 1º',text:'Art. 1º A República Federativa do Brasil, formada pela união indissolúvel dos Estados e Municípios e do Distrito Federal, constitui-se em Estado Democrático de Direito e tem como fundamentos:\n\nI - a soberania;\nII - a cidadania;\nIII - a dignidade da pessoa humana;\nIV - os valores sociais do trabalho e da livre iniciativa;\nV - o pluralismo político.\n\nParágrafo único. Todo o poder emana do povo, que o exerce por meio de representantes eleitos ou diretamente, nos termos desta Constituição.',source:LAW_SOURCE},
@@ -132,7 +166,7 @@ function questions(){
  return out+'<div class="info">Questões de elaboração própria. O acervo ainda é demonstrativo e os gabaritos precisam acompanhar futuras alterações legais.</div>';
 }
 function setQuestionMode(x){questionMode=x;if(x==='simulado'){simAnswers={};simStarted=Date.now();simFinished=false}render()}
-function answerQ(id,val){const q=QUESTIONS.find(q=>q.id===id);const correct=val===q.answer;app.attempts[id]={selection:val,correct,date:datePlus(0)};app.answered=(app.answered||0)+1;if(correct){app.hits=(app.hits||0)+1;delete app.errors[id]}else app.errors[id]=true;save();render()}
+function answerQ(id,val){const q=QUESTIONS.find(q=>q.id===id);if(!q)return;const previous=app.attempts[id],correct=val===q.answer;if(!previous)app.answered=(app.answered||0)+1;else if(previous.correct)app.hits=Math.max(0,(app.hits||0)-1);app.attempts[id]={selection:val,correct,date:datePlus(0)};if(correct){app.hits=(app.hits||0)+1;delete app.errors[id]}else app.errors[id]=true;save();render()}
 
 function openQuestionsFor(id){questionArticle=id;questionMode='article';navigate('questoes')}
 function openDaily(){questionMode='daily';navigate('questoes')}
@@ -204,6 +238,11 @@ function importData(el){const f=el.files&&el.files[0];if(!f)return;const reader=
 function resetData(){if(!confirm('Apagar todas as anotações, respostas e progresso desta demonstração?'))return;app=blank();save();render()}
 let toastTimer=null;function showToast(message){let el=document.getElementById('toast');if(!el){el=document.createElement('div');el.id='toast';el.style='position:fixed;z-index:100;bottom:90px;left:50%;transform:translateX(-50%);background:#143b3e;color:white;padding:12px 18px;border-radius:11px;box-shadow:0 9px 30px #0002;max-width:90%;font-size:13px';document.body.appendChild(el)}el.textContent=message;el.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>{el.style.display='none'},2600)}
 render();
+if(typeof window!=='undefined'){
+ window.addEventListener?.('focus',()=>checkForUpdates(false));
+ document.addEventListener?.('visibilitychange',()=>{if(!document.hidden)checkForUpdates(false)});
+ if(typeof fetch==='function')checkForUpdates(false);
+}
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
   window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch((error) => console.warn('Modo offline não disponível:',error)));
 }

@@ -1,4 +1,4 @@
-# LeiLab 0.4 | PWA independente de estudos jurídicos
+# LeiLab 0.4.1 | PWA independente de estudos jurídicos
 
 Protótipo gratuito desenvolvido com código próprio, inspirado apenas em funcionalidades gerais de ferramentas de estudo de legislação. **Não é o aplicativo Estudo Lei Seca e não inclui sua marca, seu código ou banco de questões.**
 
@@ -48,3 +48,9 @@ No GitHub Free, o Pages funciona gratuitamente para repositórios públicos. Nã
 O LeiLab tem desenvolvimento independente; a organização do ciclo de estudos usa como referência o funcionamento **publicamente descrito** no [guia do ELS](https://app.estudoleiseca.com.br/guia/app-de-lei-seca), no [guia de questões](https://app.estudoleiseca.com.br/guia/questoes-de-lei-seca) e na [importação de edital](https://app.estudoleiseca.com.br/cole-seu-edital). Não reproduz marcas, interface exclusiva, banco de dados de questões, textos editoriais ou backend. 
 
 **Paridade parcial:** as funções do protótipo são limitadas aos artigos e às questões demonstrativas. A importação do edital identifica nomes de leis e só acrescenta os artigos já disponíveis. Não há autenticação, sincronização, jurisprudência indexada, IA, podcast nem acervo completo. Não há atualização automática de legislação.
+
+## Atualização no Android
+
+A partir da 0.4.1, o aplicativo consulta `version.json` quando é aberto ou volta ao primeiro plano. Ao detectar uma versão superior, mostra um aviso e permite atualizar sem apagar o `localStorage`. A versão anterior aberta em uma aba já carregada não ganha esse aviso retroativamente: nesse caso, atualize a página no Chrome usando o mesmo endereço do LeiLab. Não use “Limpar dados” no Chrome para corrigir cache, pois isso pode eliminar respostas e anotações.
+
+Ao responder novamente uma questão já respondida, o painel deixa de contabilizá-la como uma nova questão; mostra o estado atual da resposta sem inflar acertos.
