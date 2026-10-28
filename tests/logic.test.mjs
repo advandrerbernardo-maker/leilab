@@ -21,6 +21,8 @@ function createDemo(){
     confirm:()=>true,
   };
   vm.createContext(scope);
+  vm.runInContext(readFileSync(new URL('../laws-extra.js',import.meta.url),'utf8'),scope,{filename:'laws-extra.js'});
+  vm.runInContext(readFileSync(new URL('../replica-core.js',import.meta.url),'utf8'),scope,{filename:'replica-core.js'});
   vm.runInContext(script,scope,{filename:'index-inline.js'});
   return {scope,stored,element,get:()=>vm.runInContext('app',scope)};
 }
@@ -76,9 +78,9 @@ test('aquecimento diário ignora respostas antigas e preserva histórico',()=>{
  const first=demo.element('view').innerHTML;
  assert.match(first,/Aquecimento de hoje/);
  assert.match(first,/0\/5 respondidas/);
- assert.doesNotMatch(first,/Erradas na sessão/);
+ assert.doesNotMatch(first,/✕ Errou · incluída no caderno/);
  demo.scope.answerQ('q1',true);
- const now=demo.scope.datePlus(0);
+ const now=vm.runInContext('datePlus(0)',demo.scope);
  assert.equal(demo.get().dailyAnswers[now].q1.correct,true);
  assert.equal(demo.get().answered,1);
  const after=demo.element('view').innerHTML;
