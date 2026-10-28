@@ -1,12 +1,12 @@
-# LeiLab 0.4.2 | PWA independente de estudos jurídicos
+# LeiLab 0.5.0 | PWA independente de estudos jurídicos
 
 Protótipo gratuito desenvolvido com código próprio, inspirado apenas em funcionalidades gerais de ferramentas de estudo de legislação. **Não é o aplicativo Estudo Lei Seca e não inclui sua marca, seu código ou banco de questões.**
 
 ## O que está funcionando
 
-- Biblioteca com **14 artigos e resumos demonstrativos** de Constituição Federal, Código Penal, Código Civil e CPC, além de links para outros códigos com links para conferência na fonte oficial.
+- Biblioteca com **22 entradas**: **20 artigos selecionados com redação oficial**, o **caput** do art. 37 da Constituição e **um resumo** do art. 5º, ambos identificados. Inclui navegação por capítulos, artigo anterior/próximo e links às fontes oficiais. Não é uma biblioteca integral.
 - Busca textual, destaque por palavra e notas locais por artigo.
-- **Sete questões autorais de exemplo** com resposta, explicação e caderno de erros.
+- **28 questões autorais de exemplo** com resposta, explicação e caderno de erros.
 - Meu edital demonstrativo, status de leitura, revisões D+1/D+7/D+30.
 - Modo Teste para ocultar e revelar palavras, flashcards por artigo, aquecimento diário, simulado curto, caderno de erros até acertar e importação básica de leis do edital.
 - Leitura em voz alta com seletor de vozes portuguesas oferecidas pelo Android, velocidade ajustável, pausa, retomada e prévia. A qualidade da voz depende do aparelho e do mecanismo de fala instalado; não há serviço de voz premium no protótipo.
@@ -58,3 +58,9 @@ Ao responder novamente uma questão já respondida, o painel deixa de contabiliz
 ## Aquecimento diário 0.4.2
 
 O filtro "5 do dia" começa sem revelar respostas de tentativas anteriores, mesmo quando a questão já foi respondida em "Todas". As respostas do aquecimento ficam em `dailyAnswers`, agrupadas pela data local. É possível recomeçar o treino do dia sem apagar o histórico geral, as questões erradas, as anotações ou o progresso. O painel geral continua mostrando o número de questões distintas respondidas e o acerto da resposta mais recente; não é um contador de sessões.
+
+## Biblioteca jurídica 0.5.0
+
+As redações selecionadas foram conferidas em 28/10/2026 no [portal da Constituição](https://www4.planalto.gov.br/legislacao/legis-federal/constituicao) e nas versões atualizadas da Câmara dos Deputados para [Código Penal](https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html), [Código Civil](https://www2.camara.leg.br/legin/fed/lei/2002/lei-10406-10-janeiro-2002-432893-normaatualizada-pl.html) e [CPC](https://www2.camara.leg.br/legin/fed/lei/2015/lei-13105-16-marco-2015-780273-normaatualizada-pl.html). Os artigos presentes são apenas um recorte, não a íntegra dos códigos, e a redação pode mudar por leis posteriores. Sempre conferir a fonte. Não há atualização automática.
+
+Foi mantida a chave local `leilab_demo_01` e os IDs anteriores dos artigos para preservar anotações, respostas e progresso. Marcações antigas feitas por índice de palavra podem se deslocar em artigos cujo texto foi ampliado. A próxima evolução deverá trocar essas posições por seletores textuais estáveis.

@@ -13,7 +13,7 @@ test('manifesto identifica o LeiLab sem conflito de escopo',()=>{
   assert.equal(manifest.id,'/leilab/');
   assert.equal(manifest.start_url,'/leilab/');
   assert.equal(manifest.scope,'/leilab/');
-  assert.match(html,/Versão demonstrativa 0\.4\.2/);
+  assert.match(html,/Versão demonstrativa 0\.5\.0/);
 });
 
 test('biblioteca e voz configurável estão presentes',()=>{
@@ -38,7 +38,7 @@ test('detecção de versão e atualização preserva armazenamento local',()=>{
   assert.match(html,/updateBanner/);
   assert.match(html,/version\.json/);
   assert.match(sw,/version\.json/);
-  assert.match(sw,/leilab-shell-v7/);
+  assert.match(sw,/leilab-shell-v8/);
   assert.ok(existsSync(new URL('../version.json',import.meta.url)));
 });
 
@@ -47,4 +47,13 @@ test('aquecimento diário mantém tentativas independentes e permite reiniciar',
  assert.match(html,/function restartDaily/);
  assert.match(html,/questionMode==='daily'\?\(app\.dailyAnswers/);
  assert.match(html,/Aquecimento de hoje/);
+});
+
+test('biblioteca oficial com navegação e versão 0.5',()=>{
+ assert.match(html,/official-articles\.js/);
+ assert.match(html,/lawchapter/);
+ assert.match(html,/Texto integral do artigo selecionado/);
+ assert.match(html,/const OFFICIAL=/);
+ assert.match(sw,/official-articles\.js/);
+ assert.ok(existsSync(new URL('../official-articles.js',import.meta.url)));
 });
