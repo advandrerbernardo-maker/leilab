@@ -3,8 +3,8 @@
   "short_name": "LeiLab",
   "description": "Protótipo independente para estudar artigos, praticar questões e revisar.",
   "lang": "pt-BR",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "/leilab/",
+  "scope": "/leilab/",
   "display": "standalone",
   "background_color": "#f5f7f7",
   "theme_color": "#112b35",
@@ -21,5 +21,6 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "id": "/leilab/"
 }
