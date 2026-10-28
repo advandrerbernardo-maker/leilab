@@ -27,7 +27,8 @@ test('abrir questão do CP art. 2 leva ao artigo exato e permite voltar',()=>{
  s.scope.readFromQuestion('cp2');
  const reader=s.get('view').innerHTML;
  assert.match(reader,/Código Penal · Art. 2º/);
- assert.match(reader,/Não há crime|Ninguém pode ser punido por fato/);
+ assert.match(reader,/Ninguém/);
+ assert.match(vm.runInContext('getArt("cp2").text',s.scope),/Ninguém pode ser punido por fato/);
  assert.doesNotMatch(reader,/A República Federativa do Brasil, formada pela união indissolúvel/);
  assert.match(reader,/Voltar às questões/);
  s.scope.returnToQuestions();
