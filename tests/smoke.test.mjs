@@ -13,7 +13,7 @@ test('manifesto identifica o LeiLab sem conflito de escopo',()=>{
   assert.equal(manifest.id,'/leilab/');
   assert.equal(manifest.start_url,'/leilab/');
   assert.equal(manifest.scope,'/leilab/');
-  assert.match(html,/Versão demonstrativa 0\.3/);
+  assert.match(html,/Versão demonstrativa 0\.4/);
 });
 
 test('biblioteca e voz configurável estão presentes',()=>{
@@ -23,4 +23,11 @@ test('biblioteca e voz configurável estão presentes',()=>{
   assert.match(html,/toggleSpeechPause/);
   assert.match(sw,/laws-extra\.js/);
   assert.ok(existsSync(new URL('../laws-extra.js',import.meta.url)));
+});
+
+test('fluxos Replica e cache offline da nova versão',()=>{
+  for(const item of ['function openQuestionsFor','function openDaily','function openSimulation','function flashcardsPanel','function editalEnhancements','function importEditalText','wordmasked','hiddenWords'])assert.ok(html.includes(item),'Ausente: '+item);
+  assert.match(html,/replica-core\.js/);
+  assert.match(sw,/replica-core\.js/);
+  assert.ok(existsSync(new URL('../replica-core.js',import.meta.url)));
 });
