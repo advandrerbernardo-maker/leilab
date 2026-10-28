@@ -16,3 +16,12 @@ Simulados,Questões,should,público,não iniciado,Posterior
 Jurisprudência,Conteúdo,should,público,não iniciado,Requer fonte verificada
 IA,Recursos,could,público,não iniciado,Exige cuidados e pode gerar custos
 Assinaturas,Negócio,could,público,não iniciado,Não é MVP
+Modo Teste e palavras ocultas,Memorização,must,público,demonstração,Ocultar e revelar palavras do artigo
+Questões por trecho,Questões,must,público,demonstração,Questões próprias apenas onde cadastradas
+Aquecimento diário,Questões,must,público,demonstração,Até cinco por dia do edital
+Caderno de erradas,Questões,must,público,demonstração,Remove após acerto
+Simulado curto,Questões,should,público,demonstração,Cinco questões sem gabarito imediato
+Flashcards por artigo,Revisão,should,público,demonstração,Resposta e autoavaliação
+Cole seu edital,Edital,must,público,demonstração,Reconhece leis conhecidas e sinaliza faltantes
+Continuar de onde parou,Leitura,must,público,demonstração,Último artigo salvo localmente
+Gráfico por matéria,Desempenho,should,público,demonstração,Artigos lidos por matéria

@@ -1,4 +1,4 @@
-# LeiLab 0.3 | PWA independente de estudos jurídicos
+# LeiLab 0.4 | PWA independente de estudos jurídicos
 
 Protótipo gratuito desenvolvido com código próprio, inspirado apenas em funcionalidades gerais de ferramentas de estudo de legislação. **Não é o aplicativo Estudo Lei Seca e não inclui sua marca, seu código ou banco de questões.**
 
@@ -8,6 +8,7 @@ Protótipo gratuito desenvolvido com código próprio, inspirado apenas em funci
 - Busca textual, destaque por palavra e notas locais por artigo.
 - **Sete questões autorais de exemplo** com resposta, explicação e caderno de erros.
 - Meu edital demonstrativo, status de leitura, revisões D+1/D+7/D+30.
+- Modo Teste para ocultar e revelar palavras, flashcards por artigo, aquecimento diário, simulado curto, caderno de erros até acertar e importação básica de leis do edital.
 - Leitura em voz alta com seletor de vozes portuguesas oferecidas pelo Android, velocidade ajustável, pausa, retomada e prévia. A qualidade da voz depende do aparelho e do mecanismo de fala instalado; não há serviço de voz premium no protótipo.
 - Backup JSON local (exportação e importação).
 - Interface responsiva e PWA com cache do aplicativo para uso offline após a primeira visita.
@@ -42,3 +43,8 @@ No GitHub Free, o Pages funciona gratuitamente para repositórios públicos. Nã
 2. Autenticação e sincronização, com isolamento por usuário e testes de permissões.
 3. Estudos por concurso/edital, jurisprudência e questões com direitos de uso verificados.
 4. Publicação comercial somente depois de testes, privacidade e segurança.
+## Referência funcional (Replica)
+
+O LeiLab tem desenvolvimento independente; a organização do ciclo de estudos usa como referência o funcionamento **publicamente descrito** no [guia do ELS](https://app.estudoleiseca.com.br/guia/app-de-lei-seca), no [guia de questões](https://app.estudoleiseca.com.br/guia/questoes-de-lei-seca) e na [importação de edital](https://app.estudoleiseca.com.br/cole-seu-edital). Não reproduz marcas, interface exclusiva, banco de dados de questões, textos editoriais ou backend. 
+
+**Paridade parcial:** as funções do protótipo são limitadas aos artigos e às questões demonstrativas. A importação do edital identifica nomes de leis e só acrescenta os artigos já disponíveis. Não há autenticação, sincronização, jurisprudência indexada, IA, podcast nem acervo completo. Não há atualização automática de legislação.
