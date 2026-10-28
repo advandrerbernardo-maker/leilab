@@ -15,3 +15,12 @@ test('manifesto identifica o LeiLab sem conflito de escopo',()=>{
   assert.equal(manifest.scope,'/leilab/');
   assert.match(html,/Versão demonstrativa 0\.2/);
 });
+
+test('biblioteca e voz configurável estão presentes',()=>{
+  assert.match(html,/LEILAB_EXTRA_ARTICLES/);
+  assert.match(html,/setVoiceChoice/);
+  assert.match(html,/getPortugueseVoices/);
+  assert.match(html,/toggleSpeechPause/);
+  assert.match(sw,/laws-extra\.js/);
+  assert.ok(existsSync(new URL('../laws-extra.js',import.meta.url)));
+});

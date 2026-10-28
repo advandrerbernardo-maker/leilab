@@ -1,14 +1,14 @@
-# LeiLab 0.2 | PWA independente de estudos jurídicos
+# LeiLab 0.3 | PWA independente de estudos jurídicos
 
 Protótipo gratuito desenvolvido com código próprio, inspirado apenas em funcionalidades gerais de ferramentas de estudo de legislação. **Não é o aplicativo Estudo Lei Seca e não inclui sua marca, seu código ou banco de questões.**
 
 ## O que está funcionando
 
-- Biblioteca de **quatro artigos demonstrativos** da Constituição Federal com links para conferência na fonte oficial.
+- Biblioteca com **14 artigos e resumos demonstrativos** de Constituição Federal, Código Penal, Código Civil e CPC, além de links para outros códigos com links para conferência na fonte oficial.
 - Busca textual, destaque por palavra e notas locais por artigo.
 - **Sete questões autorais de exemplo** com resposta, explicação e caderno de erros.
 - Meu edital demonstrativo, status de leitura, revisões D+1/D+7/D+30.
-- Leitura em voz alta quando o navegador oferecer síntese de voz.
+- Leitura em voz alta com seletor de vozes portuguesas oferecidas pelo Android, velocidade ajustável, pausa, retomada e prévia. A qualidade da voz depende do aparelho e do mecanismo de fala instalado; não há serviço de voz premium no protótipo.
 - Backup JSON local (exportação e importação).
 - Interface responsiva e PWA com cache do aplicativo para uso offline após a primeira visita.
 
@@ -36,7 +36,7 @@ No GitHub Free, o Pages funciona gratuitamente para repositórios públicos. Nã
 - `tests/`: verificações iniciais do pacote.
 - `replica/`: mapeamento funcional, arquitetura, prioridades e plano das próximas etapas.
 
-## Etapas futuras
+## Aviso de conteúdo jurídico\n\nOs dispositivos adicionais são **resumos de estudo**, não a transcrição integral nem uma garantia de atualização legal. Use o botão de fonte oficial antes de estudar a redação vigente. A transcrição completa e o versionamento legal ainda estão em desenvolvimento.\n\n## Etapas futuras
 
 1. Ampliar biblioteca com fontes oficiais conferidas e mecanismo de versionamento.
 2. Autenticação e sincronização, com isolamento por usuário e testes de permissões.
