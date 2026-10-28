@@ -9,7 +9,7 @@ function createDemo(){
   const elements = new Map();
   const stored=new Map();
   const element=id => {
-    if(!elements.has(id)) elements.set(id,{innerHTML:'',value:''});
+    if(!elements.has(id)) elements.set(id,{innerHTML:'',value:'',style:{},textContent:''});
     return elements.get(id);
   };
   const scope={
@@ -19,6 +19,8 @@ function createDemo(){
     document:{getElementById:element},
     localStorage:{getItem:k=>stored.get(k)||null,setItem:(k,v)=>stored.set(k,v)},
     confirm:()=>true,
+    clearTimeout:()=>{},
+    setTimeout:()=>1,
   };
   vm.createContext(scope);
   vm.runInContext(readFileSync(new URL('../laws-extra.js',import.meta.url),'utf8'),scope,{filename:'laws-extra.js'});
