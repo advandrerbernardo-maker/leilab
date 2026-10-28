@@ -9,7 +9,7 @@ function createDemo(){
   const elements = new Map();
   const stored=new Map();
   const element=id => {
-    if(!elements.has(id)) elements.set(id,{innerHTML:'',value:''});
+    if(!elements.has(id)) elements.set(id,{innerHTML:'',value:'',style:{},textContent:''});
     return elements.get(id);
   };
   const scope={
@@ -19,8 +19,12 @@ function createDemo(){
     document:{getElementById:element},
     localStorage:{getItem:k=>stored.get(k)||null,setItem:(k,v)=>stored.set(k,v)},
     confirm:()=>true,
+    clearTimeout:()=>{},
+    setTimeout:()=>1,
   };
   vm.createContext(scope);
+  vm.runInContext(readFileSync(new URL('../laws-extra.js',import.meta.url),'utf8'),scope,{filename:'laws-extra.js'});
+  vm.runInContext(readFileSync(new URL('../replica-core.js',import.meta.url),'utf8'),scope,{filename:'replica-core.js'});
   vm.runInContext(script,scope,{filename:'index-inline.js'});
   return {scope,stored,element,get:()=>vm.runInContext('app',scope)};
 }
@@ -65,4 +69,26 @@ test('trocar resposta de uma questão não infla estatísticas',()=>{
   assert.equal(demo.get().answered,1);
   assert.equal(demo.get().hits,1);
   assert.ok(!demo.get().errors.q1);
+});
+
+test('aquecimento diário ignora respostas antigas e preserva histórico',()=>{
+ const demo=createDemo();
+ demo.scope.answerQ('q1',false);
+ assert.equal(demo.get().answered,1);
+ assert.equal(demo.get().errors.q1,true);
+ demo.scope.openDaily();
+ const first=demo.element('view').innerHTML;
+ assert.match(first,/Aquecimento de hoje/);
+ assert.match(first,/0\/5 respondidas/);
+ assert.doesNotMatch(first,/✕ Errou · incluída no caderno/);
+ demo.scope.answerQ('q1',true);
+ const now=vm.runInContext('datePlus(0)',demo.scope);
+ assert.equal(demo.get().dailyAnswers[now].q1.correct,true);
+ assert.equal(demo.get().answered,1);
+ const after=demo.element('view').innerHTML;
+ assert.match(after,/1\/5 respondidas/);
+ demo.scope.restartDaily();
+ assert.equal(demo.get().dailyAnswers[now],undefined);
+ assert.equal(demo.get().answered,1);
+ assert.equal(demo.get().hits,1);
 });

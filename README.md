@@ -1,4 +1,4 @@
-# LeiLab 0.4.1 | PWA independente de estudos jurídicos
+# LeiLab 0.4.2 | PWA independente de estudos jurídicos
 
 Protótipo gratuito desenvolvido com código próprio, inspirado apenas em funcionalidades gerais de ferramentas de estudo de legislação. **Não é o aplicativo Estudo Lei Seca e não inclui sua marca, seu código ou banco de questões.**
 
@@ -54,3 +54,7 @@ O LeiLab tem desenvolvimento independente; a organização do ciclo de estudos u
 A partir da 0.4.1, o aplicativo consulta `version.json` quando é aberto ou volta ao primeiro plano. Ao detectar uma versão superior, mostra um aviso e permite atualizar sem apagar o `localStorage`. A versão anterior aberta em uma aba já carregada não ganha esse aviso retroativamente: nesse caso, atualize a página no Chrome usando o mesmo endereço do LeiLab. Não use “Limpar dados” no Chrome para corrigir cache, pois isso pode eliminar respostas e anotações.
 
 Ao responder novamente uma questão já respondida, o painel deixa de contabilizá-la como uma nova questão; mostra o estado atual da resposta sem inflar acertos.
+
+## Aquecimento diário 0.4.2
+
+O filtro "5 do dia" começa sem revelar respostas de tentativas anteriores, mesmo quando a questão já foi respondida em "Todas". As respostas do aquecimento ficam em `dailyAnswers`, agrupadas pela data local. É possível recomeçar o treino do dia sem apagar o histórico geral, as questões erradas, as anotações ou o progresso. O painel geral continua mostrando o número de questões distintas respondidas e o acerto da resposta mais recente; não é um contador de sessões.
