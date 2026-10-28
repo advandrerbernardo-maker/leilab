@@ -10,5 +10,5 @@ test('amostra em quatro códigos legais, com fontes oficiais',()=>{
   assert.ok(catalog.length>=8);
   for(const law of ['Constituição Federal','Código Penal','Código Civil','Código de Processo Civil'])assert.ok(articles.some(a=>a.law===law),law);
   assert.equal(new Set(articles.map(a=>a.id)).size,articles.length);
-  assert.ok(articles.every(a=>a.source.startsWith('https://www.')&&a.excerpt===true));
+  assert.ok(articles.every(a=>new URL(a.source).hostname.endsWith('planalto.gov.br')&&a.excerpt===true));
 });
