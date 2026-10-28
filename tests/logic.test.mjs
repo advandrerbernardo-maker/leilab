@@ -50,3 +50,19 @@ test('anotação salva ao digitar, sem esperar botão',()=>{
   assert.equal(demo.get().notes.cf1,'Minha anotação');
   assert.ok(JSON.parse(demo.stored.get('leilab_demo_01')).notes.cf1);
 });
+
+test('trocar resposta de uma questão não infla estatísticas',()=>{
+  const demo=createDemo();
+  demo.scope.answerQ('q1',true);
+  demo.scope.answerQ('q1',true);
+  assert.equal(demo.get().answered,1);
+  assert.equal(demo.get().hits,1);
+  demo.scope.answerQ('q1',false);
+  assert.equal(demo.get().answered,1);
+  assert.equal(demo.get().hits,0);
+  assert.equal(demo.get().errors.q1,true);
+  demo.scope.answerQ('q1',true);
+  assert.equal(demo.get().answered,1);
+  assert.equal(demo.get().hits,1);
+  assert.ok(!demo.get().errors.q1);
+});

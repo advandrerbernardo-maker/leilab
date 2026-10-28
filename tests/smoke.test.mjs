@@ -13,7 +13,7 @@ test('manifesto identifica o LeiLab sem conflito de escopo',()=>{
   assert.equal(manifest.id,'/leilab/');
   assert.equal(manifest.start_url,'/leilab/');
   assert.equal(manifest.scope,'/leilab/');
-  assert.match(html,/Versão demonstrativa 0\.4/);
+  assert.match(html,/Versão demonstrativa 0\.4\.1/);
 });
 
 test('biblioteca e voz configurável estão presentes',()=>{
@@ -30,4 +30,14 @@ test('fluxos Replica e cache offline da nova versão',()=>{
   assert.match(html,/replica-core\.js/);
   assert.match(sw,/replica-core\.js/);
   assert.ok(existsSync(new URL('../replica-core.js',import.meta.url)));
+});
+
+test('detecção de versão e atualização preserva armazenamento local',()=>{
+  assert.match(html,/const APP_VERSION='0\.4\.1'/);
+  assert.match(html,/checkForUpdates\(true\)/);
+  assert.match(html,/updateBanner/);
+  assert.match(html,/version\.json/);
+  assert.match(sw,/version\.json/);
+  assert.match(sw,/leilab-shell-v6/);
+  assert.ok(existsSync(new URL('../version.json',import.meta.url)));
 });
