@@ -1,5 +1,5 @@
 {
-  "version": "0.5.1",
+  "version": "0.5.2",
   "released": "2026-10-28",
-  "message": "Leitura mais confortável no celular e retorno às questões sem perder progresso."
+  "message": "Corrige sobreposição do texto no cabeçalho do leitor."
 }
