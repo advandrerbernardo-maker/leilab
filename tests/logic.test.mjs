@@ -66,3 +66,25 @@ test('trocar resposta de uma questão não infla estatísticas',()=>{
   assert.equal(demo.get().hits,1);
   assert.ok(!demo.get().errors.q1);
 });
+
+test('aquecimento diário ignora respostas antigas e preserva histórico',()=>{
+ const demo=createDemo();
+ demo.scope.answerQ('q1',false);
+ assert.equal(demo.get().answered,1);
+ assert.equal(demo.get().errors.q1,true);
+ demo.scope.openDaily();
+ const first=demo.element('view').innerHTML;
+ assert.match(first,/Aquecimento de hoje/);
+ assert.match(first,/0\/5 respondidas/);
+ assert.doesNotMatch(first,/Erradas na sessão/);
+ demo.scope.answerQ('q1',true);
+ const now=demo.scope.datePlus(0);
+ assert.equal(demo.get().dailyAnswers[now].q1.correct,true);
+ assert.equal(demo.get().answered,1);
+ const after=demo.element('view').innerHTML;
+ assert.match(after,/1\/5 respondidas/);
+ demo.scope.restartDaily();
+ assert.equal(demo.get().dailyAnswers[now],undefined);
+ assert.equal(demo.get().answered,1);
+ assert.equal(demo.get().hits,1);
+});
