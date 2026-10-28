@@ -1,6 +1,6 @@
-/* LeiLab 0.4.2: armazena apenas arquivos públicos do aplicativo. */
-const CACHE_NAME = 'leilab-shell-v7';
-const APP_FILES = ['./', './index.html', './laws-extra.js', './replica-core.js', './manifest.webmanifest', './version.json', './assets/icon.svg', './assets/icon-192.png', './assets/icon-512.png'];
+/* LeiLab 0.5.0: armazena apenas arquivos públicos do aplicativo. */
+const CACHE_NAME = 'leilab-shell-v8';
+const APP_FILES = ['./', './index.html', './laws-extra.js', './replica-core.js', './official-articles.js', './manifest.webmanifest', './version.json', './assets/icon.svg', './assets/icon-192.png', './assets/icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_FILES)).then(() => self.skipWaiting()));
 });

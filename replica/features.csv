@@ -25,3 +25,7 @@ Flashcards por artigo,Revisão,should,público,demonstração,Resposta e autoava
 Cole seu edital,Edital,must,público,demonstração,Reconhece leis conhecidas e sinaliza faltantes
 Continuar de onde parou,Leitura,must,público,demonstração,Último artigo salvo localmente
 Gráfico por matéria,Desempenho,should,público,demonstração,Artigos lidos por matéria
+Transcrição legal conferida,Biblioteca,must,referência pública,parcial,20 artigos inteiros de recorte mais caput e resumo claramente identificados
+Navegação por capítulos,Biblioteca,must,referência pública,parcial,Grupos expansíveis e artigo anterior próximo
+Fontes e data de verificação,Conteúdo,must,referência pública,parcial,URL oficial e conferência 28/10/2026
+Questões adicionais,Questões,must,referência pública,parcial,28 questões autorais vinculadas a artigos
