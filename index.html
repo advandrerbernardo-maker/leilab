@@ -102,7 +102,35 @@ if(canSpeak()){window.speechSynthesis.addEventListener?.('voiceschanged',refresh
 
 function edital(){const selected=ARTICLES.filter(a=>app.editals.includes(a.id));const n=selected.filter(a=>app.read[a.id]).length;return `<div class="eyebrow">Planejamento</div><h1>Meu edital</h1><p class="sub">Selecione os artigos desta amostra que entram no seu plano. No produto final, o edital poderá ser montado por lei, faixa de artigos e matéria.</p><div class="card" style="margin-bottom:17px"><div class="row" style="justify-content:space-between"><div><h3 style="margin:0">Meu plano demonstrativo</h3><span class="source">${n} de ${selected.length} artigos lidos</span></div><strong>${pct(n,selected.length)}%</strong></div><div class="progressbar" style="margin-top:15px"><i style="width:${pct(n,selected.length)}%"></i></div></div><div class="sectionhead"><h2>Artigos incluídos</h2></div>${ARTICLES.map(a=>`<div class="lawrow"><div class="selectline"><input type="checkbox" ${app.editals.includes(a.id)?'checked':''} id="ed-${a.id}" onchange="toggleEdital('${a.id}')"/><label for="ed-${a.id}"><strong>${h(a.label)}</strong><small>${h(a.subject)}</small></label></div><button class="btn ghost sm" onclick="navigate('leis','${a.id}')">Ler</button></div>`).join('')}<div class="info" style="margin-top:18px">Esta seleção é local e ilustrativa. Não foi importado nenhum edital real.</div>`}
 function toggleEdital(id){app.editals=app.editals.includes(id)?app.editals.filter(x=>x!==id):[...app.editals,id];save();render()}
-function questions(){const group=questionMode==='errors'?QUESTIONS.filter(q=>app.errors[q.id]):questionMode==='unanswered'?QUESTIONS.filter(q=>!app.attempts[q.id]):QUESTIONS;return `<div class="eyebrow">Treinamento</div><h1>Questões por artigo</h1><p class="sub">Questões originais de demonstração, com justificativa ligada à Constituição Federal. Não foram copiadas de provas ou serviços de terceiros.</p><div class="row" style="margin-bottom:20px"><button class="btn sm ${questionMode==='all'?'':'ghost'}" onclick="setQuestionMode('all')">Todas (${QUESTIONS.length})</button><button class="btn sm ${questionMode==='errors'?'':'ghost'}" onclick="setQuestionMode('errors')">Erradas (${Object.keys(app.errors).filter(k=>app.errors[k]).length})</button><button class="btn sm ${questionMode==='unanswered'?'':'ghost'}" onclick="setQuestionMode('unanswered')">Não respondidas</button></div>${group.length?group.map((q,i)=>{const a=getArt(q.article),r=app.attempts[q.id];return `<div class="card qcard"><div class="qnum"><span>${i+1}. CERTO OU ERRADO</span><span class="tag">${h(a.label)}</span></div><p class="qtext">${h(q.text)}</p><div class="row"><button class="btn ${r&&r.selection===true?'light':'ghost'} sm" onclick="answerQ('${q.id}',true)">Certo</button><button class="btn ${r&&r.selection===false?'light':'ghost'} sm" onclick="answerQ('${q.id}',false)">Errado</button><button class="btn ghost sm" onclick="navigate('leis','${a.id}')">Ver artigo</button></div>${r?`<div class="qresponse ${r.correct?'good':'bad'}"><strong>${r.correct?'✓ Você acertou':'✕ Você errou'}</strong><p class="small" style="margin:5px 0 0">${h(q.why)}</p></div>`:''}</div>`}).join(''):'<div class="empty">Não há questões nesta categoria. Responda algumas para começar.</div>'}<div class="info">Questões autorais de exemplo. Antes de publicar um banco completo, validaremos redação, gabarito, licença e alterações legislativas.</div>`}
+function questions(){
+ if(questionMode==='simulado')return simulatorView();
+ const dailyIds=window.LEILAB_REPLICA.dailyQuestionIds(QUESTIONS,app.editals,today);
+ let group=QUESTIONS;
+ if(questionMode==='errors')group=QUESTIONS.filter(q=>app.errors[q.id]);
+ else if(questionMode==='unanswered')group=QUESTIONS.filter(q=>!app.attempts[q.id]);
+ else if(questionMode==='article')group=QUESTIONS.filter(q=>q.article===questionArticle);
+ else if(questionMode==='daily')group=QUESTIONS.filter(q=>dailyIds.includes(q.id));
+ else if(questionMode==='read')group=QUESTIONS.filter(q=>app.read[q.article]);
+ const wrong=Object.values(app.errors).filter(Boolean).length;
+ let out='<div class="eyebrow">Prática por dispositivo</div><h1>Questões e cadernos</h1><p class="sub">Responda questões autorais, confira a explicação e volte ao artigo. As que você erra ficam no caderno até acertar.</p>';
+ out+='<div class="subnav">';
+ for(const [id,label] of [['all','Todas ('+QUESTIONS.length+')'],['daily','5 do dia'],['article','Do artigo'],['errors','Erradas ('+wrong+')'],['unanswered','Novas'],['read','Artigos lidos']]){
+  if(id==='article'&&!questionArticle)continue;
+  out+='<button class="btn sm '+(questionMode===id?'':'ghost')+'" onclick="setQuestionMode(\''+id+'\')">'+label+'</button>';
+ }
+ out+='<button class="btn sm ghost" onclick="openSimulation()">⏱ Simulado</button></div>';
+ if(questionMode==='daily')out+='<div class="info" style="margin-bottom:14px">Aquecimento: até cinco questões por dia dos artigos selecionados em Meu Edital, quando houver questões disponíveis. Não substitui um banco completo.</div>';
+ if(questionMode==='article'&&questionArticle){const article=getArt(questionArticle);out+='<p class="sub">Treino do dispositivo: '+h(article?.law||'')+' · '+h(article?.label||'')+'</p>';}
+ if(!group.length)return out+'<div class="empty">Não há questões neste filtro. Escolha outra categoria ou um artigo com exercícios cadastrados.</div>';
+ group.forEach((q,i)=>{
+  const a=getArt(q.article),attempt=app.attempts[q.id];if(!a)return;
+  out+='<div class="card qcard"><div class="qnum"><span>'+(i+1)+'. CERTO OU ERRADO · AUTORAL</span><span class="tag">'+h(a.law)+' · '+h(a.label)+'</span></div><p class="qtext">'+h(q.text)+'</p>';
+  out+='<div class="row"><button class="btn '+(attempt?.selection===true?'light':'ghost')+' sm" onclick="answerQ(\''+q.id+'\',true)">Certo</button><button class="btn '+(attempt?.selection===false?'light':'ghost')+' sm" onclick="answerQ(\''+q.id+'\',false)">Errado</button><button class="btn ghost sm" onclick="navigate(\'leis\',\''+a.id+'\')">Ler artigo</button></div>';
+  if(attempt)out+='<div class="qresponse '+(attempt.correct?'good':'bad')+'"><strong>'+(attempt.correct?'✓ Acertou':'✕ Errou · incluída no caderno')+'</strong><p class="small" style="margin:5px 0 0">'+h(q.why)+'</p></div>';
+  out+='</div>';
+ });
+ return out+'<div class="info">Questões de elaboração própria. O acervo ainda é demonstrativo e os gabaritos precisam acompanhar futuras alterações legais.</div>';
+}
 function setQuestionMode(x){questionMode=x;if(x==='simulado'){simAnswers={};simStarted=Date.now();simFinished=false}render()}
 function answerQ(id,val){const q=QUESTIONS.find(q=>q.id===id);const correct=val===q.answer;app.attempts[id]={selection:val,correct,date:datePlus(0)};app.answered=(app.answered||0)+1;if(correct){app.hits=(app.hits||0)+1;delete app.errors[id]}else app.errors[id]=true;save();render()}
 
