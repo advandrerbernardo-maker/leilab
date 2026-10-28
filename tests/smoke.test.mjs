@@ -13,7 +13,7 @@ test('manifesto identifica o LeiLab sem conflito de escopo',()=>{
   assert.equal(manifest.id,'/leilab/');
   assert.equal(manifest.start_url,'/leilab/');
   assert.equal(manifest.scope,'/leilab/');
-  assert.match(html,/Versão demonstrativa 0\.5\.0/);
+  assert.match(html,/Versão demonstrativa 0\.5\.1/);
 });
 
 test('biblioteca e voz configurável estão presentes',()=>{
@@ -33,12 +33,12 @@ test('fluxos Replica e cache offline da nova versão',()=>{
 });
 
 test('detecção de versão e atualização preserva armazenamento local',()=>{
-  assert.match(html,/const APP_VERSION='0\.5\.0'/);
+  assert.match(html,/const APP_VERSION='0\.5\.1'/);
   assert.match(html,/checkForUpdates\(true\)/);
   assert.match(html,/updateBanner/);
   assert.match(html,/version\.json/);
   assert.match(sw,/version\.json/);
-  assert.match(sw,/leilab-shell-v8/);
+  assert.match(sw,/leilab-shell-v9/);
   assert.ok(existsSync(new URL('../version.json',import.meta.url)));
 });
 
@@ -56,4 +56,13 @@ test('biblioteca oficial com navegação e versão 0.5',()=>{
  assert.match(html,/const OFFICIAL=/);
  assert.match(sw,/official-articles\.js/);
  assert.ok(existsSync(new URL('../official-articles.js',import.meta.url)));
+});
+
+test('leitor acessível no celular com retorno às questões e tamanho ajustável',()=>{
+  assert.match(html,/function readFromQuestion/);
+  assert.match(html,/function returnToQuestions/);
+  assert.match(html,/function changeReaderSize/);
+  assert.match(html,/id="readerContent"/);
+  assert.match(html,/Voltar às questões/);
+  assert.match(html,/reader-loc|reading-header/);
 });

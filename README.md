@@ -1,4 +1,4 @@
-# LeiLab 0.5.0 | PWA independente de estudos jurídicos
+# LeiLab 0.5.1 | PWA independente de estudos jurídicos
 
 Protótipo gratuito desenvolvido com código próprio, inspirado apenas em funcionalidades gerais de ferramentas de estudo de legislação. **Não é o aplicativo Estudo Lei Seca e não inclui sua marca, seu código ou banco de questões.**
 
@@ -64,3 +64,9 @@ O filtro "5 do dia" começa sem revelar respostas de tentativas anteriores, mesm
 As redações selecionadas foram conferidas em 28/10/2026 no [portal da Constituição](https://www4.planalto.gov.br/legislacao/legis-federal/constituicao) e nas versões atualizadas da Câmara dos Deputados para [Código Penal](https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html), [Código Civil](https://www2.camara.leg.br/legin/fed/lei/2002/lei-10406-10-janeiro-2002-432893-normaatualizada-pl.html) e [CPC](https://www2.camara.leg.br/legin/fed/lei/2015/lei-13105-16-marco-2015-780273-normaatualizada-pl.html). Os artigos presentes são apenas um recorte, não a íntegra dos códigos, e a redação pode mudar por leis posteriores. Sempre conferir a fonte. Não há atualização automática.
 
 Foi mantida a chave local `leilab_demo_01` e os IDs anteriores dos artigos para preservar anotações, respostas e progresso. Marcações antigas feitas por índice de palavra podem se deslocar em artigos cujo texto foi ampliado. A próxima evolução deverá trocar essas posições por seletores textuais estáveis.
+
+## Leitura no celular 0.5.1
+
+A página do artigo exibe o diploma e o dispositivo em um cabeçalho compacto, com espaçamento menor. Há ajuste de fonte de 15 a 22 px, salvo no mesmo armazenamento local. Ao abrir um artigo dentro do caderno de questões, **Voltar às questões** restaura o filtro anterior e a posição aproximada da lista. Os dados de estudo e as vozes disponíveis continuam os mesmos.
+
+A fotografia enviada para validação mostrava o art. 1º da Constituição Federal quando o teste anterior tratava do art. 2º do Código Penal. O código existente já vinculava questões a seus respectivos IDs; o novo retorno contextual e a identificação visível do dispositivo ajudam a verificar a navegação. Não afirmar que a causa da captura era um erro de roteamento sem reprodução em dispositivo real.
