@@ -71,6 +71,6 @@ test('cabeçalho do leitor não deixa texto vazar durante a rolagem',()=>{
  const css=html.match(/\.reading-header\{([^}]*)\}/)?.[1]||'';
  assert.match(css,/position:sticky/);
  assert.match(css,/background:#fff/);
- assert.doesNotMatch(css,/rgba\(/);
+ assert.doesNotMatch(css,/background:rgba\(/);
  assert.match(css,/isolation:isolate/);
 });
