@@ -33,7 +33,7 @@ test('fluxos Replica e cache offline da nova versão',()=>{
 });
 
 test('detecção de versão e atualização preserva armazenamento local',()=>{
-  assert.match(html,/const APP_VERSION='0\.4\.2'/);
+  assert.match(html,/const APP_VERSION='0\.5\.0'/);
   assert.match(html,/checkForUpdates\(true\)/);
   assert.match(html,/updateBanner/);
   assert.match(html,/version\.json/);
