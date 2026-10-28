@@ -1,4 +1,4 @@
-# LeiLab 0.5.1 | PWA independente de estudos jurídicos
+# LeiLab 0.5.2 | PWA independente de estudos jurídicos
 
 Protótipo gratuito desenvolvido com código próprio, inspirado apenas em funcionalidades gerais de ferramentas de estudo de legislação. **Não é o aplicativo Estudo Lei Seca e não inclui sua marca, seu código ou banco de questões.**
 
@@ -70,3 +70,7 @@ Foi mantida a chave local `leilab_demo_01` e os IDs anteriores dos artigos para 
 A página do artigo exibe o diploma e o dispositivo em um cabeçalho compacto, com espaçamento menor. Há ajuste de fonte de 15 a 22 px, salvo no mesmo armazenamento local. Ao abrir um artigo dentro do caderno de questões, **Voltar às questões** restaura o filtro anterior e a posição aproximada da lista. Os dados de estudo e as vozes disponíveis continuam os mesmos.
 
 A fotografia enviada para validação mostrava o art. 1º da Constituição Federal quando o teste anterior tratava do art. 2º do Código Penal. O código existente já vinculava questões a seus respectivos IDs; o novo retorno contextual e a identificação visível do dispositivo ajudam a verificar a navegação. Não afirmar que a causa da captura era um erro de roteamento sem reprodução em dispositivo real.
+
+## Correção de leitura 0.5.2
+
+O cabeçalho fixo de identificação da lei e do artigo usa fundo totalmente opaco, para evitar que letras da legislação apareçam por trás dele durante a rolagem no Android. Não modifica anotações, questões, vozes ou a chave de armazenamento local.
