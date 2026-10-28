@@ -1,0 +1,18 @@
+feature,area,priority,original,clone,notes
+Login por e-mail,Acesso,must,público,não iniciado,Protótipo local sem conta
+Biblioteca de leis,Biblioteca,must,público,demonstração,Quatro artigos de exemplo
+Busca de artigos,Biblioteca,must,público,demonstração,Busca local
+Leitura responsiva,Leitura,must,público,demonstração,Mobile first
+Marca-texto,Leitura,must,público,demonstração,Destaque por palavra
+Anotações por artigo,Leitura,must,público,demonstração,Salvas no navegador
+Progresso por artigo,Estudo,must,público,demonstração,Marcar lido
+Questões por artigo,Questões,must,público,demonstração,Questões autorais
+Caderno de erros,Questões,must,público,demonstração,Revisar incorretas
+Revisões espaçadas,Estudo,must,público,demonstração,D+1 D+7 D+30
+Seleção de artigos,Edital,must,público,demonstração,Checklist local
+Áudio,Leitura,should,público,demonstração,Síntese do dispositivo
+Flashcards,Memorização,should,público,não iniciado,Posterior
+Simulados,Questões,should,público,não iniciado,Posterior
+Jurisprudência,Conteúdo,should,público,não iniciado,Requer fonte verificada
+IA,Recursos,could,público,não iniciado,Exige cuidados e pode gerar custos
+Assinaturas,Negócio,could,público,não iniciado,Não é MVP

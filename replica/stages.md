@@ -1,0 +1,16 @@
+# Replica: acompanhamento das 11 etapas
+Data: 28/10/2026
+
+1. Recon: parcial, com páginas públicas; ampliar por conta autorizada.
+2. Architect: proposta inicial no arquivo architecture.md.
+3. Design: protótipo responsivo e identidade LeiLab provisória.
+4. Build: demonstração de cinco abas em index.html.
+5. Backend: não iniciado; apenas localStorage.
+6. Test: testes básicos com Node; Android real pendente.
+7. Diff: matriz de funcionalidades no arquivo features.csv.
+8. Entrepreneur: pesquisa inicial limitada, sem conclusões amplas.
+9. Brand: LeiLab é nome provisório; marca ainda não pesquisada.
+10. Launch: não iniciado; protótipo gratuito para validação.
+11. Deploy: repositório preparado para GitHub Pages, ativação pendente.
+
+Não afirmar paridade com o produto original e não usar recursos pagos, áreas privadas ou conteúdo proprietário sem autorização.
