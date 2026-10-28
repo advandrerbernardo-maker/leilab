@@ -13,7 +13,7 @@ test('manifesto identifica o LeiLab sem conflito de escopo',()=>{
   assert.equal(manifest.id,'/leilab/');
   assert.equal(manifest.start_url,'/leilab/');
   assert.equal(manifest.scope,'/leilab/');
-  assert.match(html,/Versão demonstrativa 0\.2/);
+  assert.match(html,/Versão demonstrativa 0\.3/);
 });
 
 test('biblioteca e voz configurável estão presentes',()=>{
