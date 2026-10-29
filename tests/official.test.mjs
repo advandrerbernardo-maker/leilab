@@ -67,3 +67,43 @@ test('anotações e questões antigas continuam presentes após migração',()=>
  assert.match(s.get('view').innerHTML,/Minha nota antiga/);
  assert.equal(s.app().read.cp1,undefined);
 });
+
+test('expansão acrescenta CP 5-12, CC 5-16 e CPC 9-15 sem lacunas',()=>{
+ const s=session(),all=s.articles();
+ for(const [prefix,start,end] of [['cp',1,12],['cc',1,16],['cpc',1,15]]){
+  for(let n=start;n<=end;n++){
+   const article=all.find(a=>a.id===prefix+n);
+   assert.ok(article,'Artigo não encontrado: '+prefix+n);
+   assert.equal(article.label,'Art. '+n+(n<10?'º':'.'));
+   assert.ok(article.source.startsWith('https://'));
+  }
+ }
+ assert.match(all.find(a=>a.id==='cp7').text,/§ 3º/);
+ assert.match(all.find(a=>a.id==='cc5').text,/economia própria/);
+ assert.match(all.find(a=>a.id==='cpc12').text,/preferencialmente/);
+ assert.equal(all.find(a=>a.id==='cc11').chapter,'Direitos da personalidade');
+});
+test('nova questão registra acerto e permite ler o artigo relacionado',()=>{
+ const s=session();
+ s.scope.answerQ('excp6',false);
+ assert.equal(s.app().answered,1);
+ assert.equal(s.app().hits,1);
+ assert.equal(s.app().attempts.excp6.correct,true);
+ s.scope.openQuestionsFor('cc11');
+ assert.match(s.get('view').innerHTML,/Direito Civil/);
+ s.scope.navigate('leis','cc11');
+ const view=s.get('view').innerHTML;
+ assert.match(view,/Direitos da personalidade/);
+ assert.match(view,/cc10/);
+ assert.match(view,/cc12/);
+});
+test('registros antigos persistem com a expansão e IDs novos',()=>{
+ const before={'leilab_demo_01':JSON.stringify({notes:{cp2:'Estudo anterior'},answered:7,hits:6,attempts:{q1:{selection:true,correct:true}},errors:{q5:true},read:{cf1:true}})};
+ const s=session(before);
+ assert.equal(s.app().notes.cp2,'Estudo anterior');
+ assert.equal(s.app().answered,7);
+ assert.equal(s.app().hits,6);
+ assert.equal(s.app().read.cf1,true);
+ assert.equal(s.app().errors.q5,true);
+ assert.ok(s.questions().find(x=>x.id==='excc14'));
+});
