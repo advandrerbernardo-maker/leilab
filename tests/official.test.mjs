@@ -16,19 +16,19 @@ function session(saved){
   localStorage:{getItem:k=>records.get(k)||null,setItem:(k,v)=>records.set(k,v)}
  };
  vm.createContext(scope);
- for(const file of ['laws-extra.js','replica-core.js','official-articles.js'])vm.runInContext(read(file),scope,{filename:file});
+ for(const file of ['laws-extra.js','replica-core.js','official-articles.js','library-expansion.js'])vm.runInContext(read(file),scope,{filename:file});
  vm.runInContext(script,scope,{filename:'index-inline.js'});
  return {scope,records,get,app:()=>vm.runInContext('app',scope),articles:()=>vm.runInContext('ARTICLES',scope),questions:()=>vm.runInContext('QUESTIONS',scope)};
 }
 test('textos oficiais têm fonte, identificação e IDs únicos',()=>{
  const s=session(),a=s.articles(),q=s.questions();
- assert.equal(a.length,22);
- assert.equal(q.length,28);
+ assert.equal(a.length,49);
+ assert.equal(q.length,55);
  assert.equal(new Set(a.map(x=>x.id)).size,a.length);
  assert.equal(new Set(q.map(x=>x.id)).size,q.length);
  assert.ok(q.every(x=>a.some(y=>y.id===x.article)));
  const official=a.filter(x=>x.textStatus==='integral');
- assert.equal(official.length,20);
+ assert.equal(official.length,47);
  for(const x of official){
   assert.ok(x.source.startsWith('https://'));
   assert.equal(x.verifiedAt,'2026-10-28');

@@ -1,12 +1,12 @@
-# LeiLab 0.5.2 | PWA independente de estudos jurídicos
+# LeiLab 0.6.0 | PWA independente de estudos jurídicos
 
 Protótipo gratuito desenvolvido com código próprio, inspirado apenas em funcionalidades gerais de ferramentas de estudo de legislação. **Não é o aplicativo Estudo Lei Seca e não inclui sua marca, seu código ou banco de questões.**
 
 ## O que está funcionando
 
-- Biblioteca com **22 entradas**: **20 artigos selecionados com redação oficial**, o **caput** do art. 37 da Constituição e **um resumo** do art. 5º, ambos identificados. Inclui navegação por capítulos, artigo anterior/próximo e links às fontes oficiais. Não é uma biblioteca integral.
+- Biblioteca com **49 entradas**: **47 artigos selecionados com redação oficial**, o **caput** do art. 37 da Constituição e **um resumo** do art. 5º, ambos identificados. Inclui navegação por capítulos, artigo anterior/próximo e links às fontes oficiais. Não é uma biblioteca integral.
 - Busca textual, destaque por palavra e notas locais por artigo.
-- **28 questões autorais de exemplo** com resposta, explicação e caderno de erros.
+- **55 questões autorais de exemplo** com resposta, explicação e caderno de erros.
 - Meu edital demonstrativo, status de leitura, revisões D+1/D+7/D+30.
 - Modo Teste para ocultar e revelar palavras, flashcards por artigo, aquecimento diário, simulado curto, caderno de erros até acertar e importação básica de leis do edital.
 - Leitura em voz alta com seletor de vozes portuguesas oferecidas pelo Android, velocidade ajustável, pausa, retomada e prévia. A qualidade da voz depende do aparelho e do mecanismo de fala instalado; não há serviço de voz premium no protótipo.
@@ -74,3 +74,11 @@ A fotografia enviada para validação mostrava o art. 1º da Constituição Fede
 ## Correção de leitura 0.5.2
 
 O cabeçalho fixo de identificação da lei e do artigo usa fundo totalmente opaco, para evitar que letras da legislação apareçam por trás dele durante a rolagem no Android. Não modifica anotações, questões, vozes ou a chave de armazenamento local.
+
+## Ampliação jurídica 0.6.0
+
+Foram acrescentados **27 artigos selecionados**, acompanhados de **27 questões autorais** ligadas aos artigos: Código Penal arts. 5º a 12; Código Civil arts. 5º a 16; Código de Processo Civil arts. 9º a 15. Total: **49 entradas e 55 questões**, sendo 47 artigos completos (dentre os selecionados), um caput e um resumo identificados. Os diplomas inteiros ainda não estão armazenados.
+
+Fontes oficiais consultadas em 28/10/2026: [Código Penal atualizado (Câmara)](https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html), [Código Civil atualizado (Câmara)](https://www2.camara.leg.br/legin/fed/lei/2002/lei-10406-10-janeiro-2002-432893-normaatualizada-pl.html), [CPC atualizado (Câmara)](https://www2.camara.leg.br/legin/fed/lei/2015/lei-13105-16-marco-2015-780273-normaatualizada-pl.html), [Código Penal (Senado)](https://legis.senado.gov.br/norma/527942/publicacao/39870011). O usuário deve conferir alterações legislativas posteriores.
+
+A expansão é o arquivo `library-expansion.js` carregado após a base legal anterior. IDs antigos, a chave `leilab_demo_01`, anotações, histórico e vozes são mantidos. Novos artigos serão armazenados offline pelo service worker.

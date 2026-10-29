@@ -15,7 +15,7 @@ function session(saved){
   localStorage:{getItem:k=>stored.get(k)||null,setItem:(k,v)=>stored.set(k,v)}
  };
  vm.createContext(scope);
- for(const p of ['laws-extra.js','replica-core.js','official-articles.js'])vm.runInContext(read(p),scope);
+ for(const p of ['laws-extra.js','replica-core.js','official-articles.js','library-expansion.js'])vm.runInContext(read(p),scope);
  vm.runInContext(inline,scope,{filename:'index-inline.js'});
  return {scope,elements,scrolls,stored,get,app:()=>vm.runInContext('app',scope)};
 }
