@@ -90,7 +90,7 @@ test('nova questão registra acerto e permite ler o artigo relacionado',()=>{
  assert.equal(s.app().hits,1);
  assert.equal(s.app().attempts.excp6.correct,true);
  s.scope.openQuestionsFor('cc11');
- assert.match(s.get('view').innerHTML,/Direito Civil/);
+ assert.match(s.get('view').innerHTML,/Código Civil/);
  s.scope.navigate('leis','cc11');
  const view=s.get('view').innerHTML;
  assert.match(view,/Direitos da personalidade/);
